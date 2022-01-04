@@ -10,12 +10,17 @@
         </div>
       </div>
       <div class="card-body">
-        <form>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
-            <input type="text" class="form-control" placeholder="username" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="username"
+              formControlName="email"
+            />
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -25,17 +30,24 @@
               type="password"
               class="form-control"
               placeholder="password"
+              formControlName="password"
             />
           </div>
-          <div class="row align-items-center remember">
+          <div
+            class="row align-items-center remember"
+            *ngIf="password?.value != 'Prateek'"
+          >
             <input type="checkbox" />Remember Me
           </div>
+          <div class="text-danger">{{ errorMessage$ | async | titlecase }}</div>
           <div class="form-group">
-            <input
+            <button
               type="submit"
-              value="Login"
+              [disabled]="loginForm.invalid"
               class="btn float-right login_btn"
-            />
+            >
+              Login
+            </button>
           </div>
         </form>
       </div>
